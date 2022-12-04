@@ -1,5 +1,13 @@
-<form action="{% url 'polls:vote' question.id %}" method="post">
+{# Load the tag library #}
+{% load bootstrap5 %}
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+<form role='form' action="{% url 'polls:vote' question.id %}" method="post">
     {% csrf_token %}
+    {% bootstrap_form form %}
     <fieldset>
         <legend>
             <h1>{{ question.question_text }}</h1>

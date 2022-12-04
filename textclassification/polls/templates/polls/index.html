@@ -1,4 +1,13 @@
 {% load static %}
+{# Load the tag library #}
+{% load bootstrap5 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
 
 <link rel="stylesheet" href="{% static 'polls/style.css' %}"/>
 {% if latest_question_list %}
