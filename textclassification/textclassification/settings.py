@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     "bootstrap5",
+    "classification.apps.ClassificationConfig",
     "polls.apps.PollsConfig",
     "django.contrib.admin",
     "django.contrib.auth",
