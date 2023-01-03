@@ -1,4 +1,4 @@
 from django import forms
 
 class NameForm(forms.Form):
-    your_name = forms.CharField(label='Your name', max_length=100)
+    text_to_classify = forms.CharField(widget=forms.Textarea,label='Text to Classify', max_length=1000)

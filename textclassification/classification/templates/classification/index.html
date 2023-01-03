@@ -3,10 +3,69 @@
 {% block title %}
     Text Classification using Huggingface APIs
 {% endblock title %}
+{% block head %}
+{% endblock head %}
 {% block content %}
-    This is <em>bootstrap5</em> for <strong>Django</strong>.
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+    <script>
+        $(function(){
+            console.log( "ready!" );
+            $('#submitButton').click(function(e){
+                console.log('submitting');
+                e.preventDefault();
+                $('#result').html("<h3>Loading...</h3>") 
+                $.ajax({
+                    type : "POST", 
+                    url: "{% url 'classification:ajax-posting' %}",
+                    //url: "ajax_posting",
+                    data: {
+                        text_to_classify : $('#id_text_to_classify').val(),
+                        csrfmiddlewaretoken: '{{ csrf_token }}',
+                        dataType: "json",
+                    },
+                    success: function(data){
+                        console.log(data)
+                        //console.log(data['all_data'].length)
+                        html = ""
+                        for(i=0; i<data['all_data'].length;i++){
+                            //console.log(data['all_data'][i])
+                            for(j=0; j<data['all_data'][i].length;j++){
+                                if(j==0){
+                                    html+='<h4>model: '+data['all_data'][i][j]['model']+'</h4>'
+                                }else{
+                                    html+=data['all_data'][i][j]['label'] + ': '
+                                    +(data['all_data'][i][j]['score']*100).toFixed(2)+'%<br/>'
+                                    //console.log(data['all_data'][i][j]['label'])
+                                    //console.log(data['all_data'][i][j]['score'])
+                                }
+                            }
+                            html += "<br/><br/>"
+
+                        }
+                        console.log(html)
+                        $('#result').html(html) 
+                    },
+                
+                    failure: function() {
+                        console.log('failure')
+                    }
+                });
+            }); 
+        });
+
+    </script>
+    This is <em> bootstrap5</em > for <strong>Django</strong>.
     <div class="row">
-        <div class="col-md-6">this here</div>
-        <div class="col-md-6">that here</div>
-    </div>
+        <div class="col-md-6">
+            <form id="form" class="form" method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input id="submitButton"
+                       class="btn btn-primary"
+                       type="submit"
+                       value="Submit"/>
+            </form>
+        </div>
+        <div class="col-md-6" id="result">that here</div>
+    </div >
 {% endblock content %}
