@@ -13,9 +13,11 @@ headers = {"Authorization": "Bearer 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"}
 class HuggingFace:        
     def query(self,payload):
         data = json.loads('{"all_data":[]}')
+        data1 = dict(inputs=payload, 
+            options=dict(wait_for_model=True))
 
         for url in API_URLS:
-            response = requests.post(url, headers=headers, json=payload)
+            response = requests.post(url, headers=headers, data=json.dumps(data1))
             output = response.json()
             if "error" in output:
                 print(output["error"])

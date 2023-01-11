@@ -7,7 +7,7 @@
 {% bootstrap_messages %}
 <form role='form' action="{% url 'polls:vote' question.id %}" method="post">
     {% csrf_token %}
-    {% bootstrap_form form %}
+    {% comment %} {% bootstrap_form form %} {% endcomment %}
     <fieldset>
         <legend>
             <h1>{{ question.question_text }}</h1>
