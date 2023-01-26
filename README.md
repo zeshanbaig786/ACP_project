@@ -1,4 +1,4 @@
-# Simple Django project
+# Hugging-Face-APi-Usage-python-textclassification
 
 ## notes
 
